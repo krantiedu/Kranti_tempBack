@@ -280,7 +280,8 @@ router.post('/product', upload.single('image'), async (req, res) => {
       title : req.body.title,
       description : req.body.description,
       link : req.body.link,
-      image:imageUrl
+      image:imageUrl,
+      class:req.body.class,
     });
 
     await newProduct.save();
@@ -407,16 +408,74 @@ router.get("/allmodule",function(req,res){
 })
 
 
+//=================================================For Questions==========================================//
+
+
+const questionModel = require("./question.js");
+
+router.get("/question",function(req,res){
+  res.render("question");
+})
+
+router.post("/question",function(req,res){
+  try {
+
+    questionModel.create({
+
+      module_id: req.body.moduleId,
+      question: req.body.question,
+      op_one : req.body.op_one,
+      op_two : req.body.op_two,
+      op_three : req.body.op_three,
+      op_forth : req.body.op_forth,
+      answer : req.body.answer,
+  
+
+    }).then(function(createdUser){
+      res.send(createdUser);
+    })
+    
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+router.get("/allquestion",function(req,res){
+  questionModel.find().then(function(questions){
+    res.send(questions);
+  })
+})
 
 
 
+router.post("/sendquestion",function(req,res){
+  try {
+    let moduleId = req.body.moduleId;
+    questionModel.find({module_id:moduleId}).then(function(questions){
 
 
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
 
-
-
-
-
+      const shuffledUsers = shuffleArray(questions);
+      const selectedUsers = shuffledUsers.slice(0, 3);
+      
+      res.json(selectedUsers);
+    }).catch(function(error){
+      console.log(error);
+      res.status(401).json({ error: "No questions Found" })
+    })
+    
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({ error: "No questions Found" })
+  }
+})
 
 
 
@@ -501,12 +560,6 @@ router.post("/login", function(req, res, next) {
   })(req, res, next);
   
 });
-
-
-
-
-
-
 
 
 router.get("/logout",function(req,res){

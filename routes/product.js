@@ -7,9 +7,9 @@ const productSchema = mongoose.Schema({
     description : String,
     link : String,
     image:String,
+    class : String,
     
 
 })
 
 module.exports = mongoose.model("product",productSchema);
-
