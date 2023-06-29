@@ -270,7 +270,7 @@ router.get("/product",function(req,res){
 router.post('/product', upload.single('image'), async (req, res) => {
   try {
     // File uploaded successfully
-
+    
     // Get the URL of the uploaded image
     const imageUrl = `https://aakarsh1437.s3.ap-south-1.amazonaws.com/${req.file.key}`;
 
@@ -282,6 +282,7 @@ router.post('/product', upload.single('image'), async (req, res) => {
       link : req.body.link,
       image:imageUrl,
       class:req.body.class,
+      language: req.body.language,
     });
 
     await newProduct.save();
