@@ -554,7 +554,7 @@ router.post("/login", function(req, res, next) {
       console.log('Login successful:', user);
       // req.session.user = user;
       globalUser = user;
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY);
+      const token = jwt.sign({ userId: user._id }, 'your-secret-key');
       
       return res.status(200).json({ message: "Login successful" ,token});
     });
