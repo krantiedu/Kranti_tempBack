@@ -511,7 +511,7 @@ router.post('/register', function (req, res, next) {
   userModel.register(data, req.body.password)
     .then(function (createdUser) {
       passport.authenticate("local")(req, res, function () {
-        const token = jwt.sign({ userId: createdUser._id }, process.env.JWT_SECRET_KEY);
+        const token = jwt.sign({ userId: createdUser._id },'your-secret-key');
         res.status(200).json({ message: "Registration successful" , token});
       });
     })
