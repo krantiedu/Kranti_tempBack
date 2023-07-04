@@ -85,7 +85,7 @@ const s3Client = new S3Client({
 const upload = multer({
   storage: multerS3({
     s3: s3Client,
-    bucket: 'aakarsh1437',
+    bucket: 'kranti2023',
     key: (req, file, cb) => {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
       cb(null, `uploads/user-uploads/${uniqueSuffix}.${file.originalname.split('.').pop()}`);
@@ -189,7 +189,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
   // File uploaded successfully
 
     // Get the URL of the uploaded image
-    const imageUrl = `https://aakarsh1437.s3.ap-south-1.amazonaws.com/${req.file.key}`;
+    const imageUrl = `https://kranti2023.s3.ap-south-1.amazonaws.com/${req.file.key}`;
 
 
 
@@ -272,7 +272,7 @@ router.post('/product', upload.single('image'), async (req, res) => {
     // File uploaded successfully
     
     // Get the URL of the uploaded image
-    const imageUrl = `https://aakarsh1437.s3.ap-south-1.amazonaws.com/${req.file.key}`;
+    const imageUrl = `https://kranti2023.s3.ap-south-1.amazonaws.com/${req.file.key}`;
 
     // Save the URL to MongoDB or perform any other desired operations
     const newProduct = new productModel({
@@ -347,7 +347,7 @@ router.post('/module', upload.single('image'), async (req, res) => {
     // File uploaded successfully
 
     // Get the URL of the uploaded image
-    const imageUrl = `https://aakarsh1437.s3.ap-south-1.amazonaws.com/${req.file.key}`;
+    const imageUrl = `https://kranti2023.s3.ap-south-1.amazonaws.com/${req.file.key}`;
 
     // Save the URL to MongoDB or perform any other desired operations
     const newModule = new moduleModel({
